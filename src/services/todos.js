@@ -15,7 +15,7 @@ class TodoDataService{
 
     updateTodo(id, data, token){
         axios.defaults.headers.common['Authorization'] = "Token " + token;
-        return axios.put(`http://localhost:8000/api/todoos/${id}`,data, {
+        return axios.put(`${API_BASE_URL}/todoos/${id}`,data, {
       headers: {
         Authorization: `Token ${token}`
       }
@@ -24,20 +24,21 @@ class TodoDataService{
 
     deleteTodo(id, token){
         axios.defaults.headers.common['Authorization'] = "Token " + token;
-        return axios.delete(`http://localhost:8000/api/todoos/${id}`)
+        return axios.delete(`${API_BASE_URL}/todoos/${id}`)
     }
 
     completeTodo(id,token){
         axios.defaults.headers.common['Authorization'] = "Token " + token;
-        return axios.put(`http://localhost:8000/api/todos/${id}/complete`)
+        return axios.put(`${API_BASE_URL}/todos/${id}/complete`)
     }
 
     login(data){
-        return axios.post('http://localhost:8000/api/login/', data)
+        return axios.post(`${API_BASE_URL}/login/`, data)
     }
     signup(data){
-        return axios.post('http://localhost:8000/api/signup/', data)
+        return axios.post(`${API_BASE_URL}/signup/`, data)
     }
 }
 
-export default new TodoDataService();
+const TodoDataService1 = new TodoDataService();
+export default TodoDataService1;

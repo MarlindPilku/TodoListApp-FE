@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 // v6 changes
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
-import TodoDataService from '../services/todos';
+import TodoDataService1 from '../services/todos';
 import {Link} from 'react-router-dom';
 // UI
 import Container from "react-bootstrap/Container";
@@ -17,9 +17,9 @@ function AddTodo({token}){
     let initialTodoTitle = '';
     let initialTodoMenu = '';*/
     // v6
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
     const params = useParams();
-    const location = useLocation();
+    //const location = useLocation();
     // v6
     const initialTodoState = {
         id: null,
@@ -43,7 +43,7 @@ function AddTodo({token}){
   }, [params.id]);
 
   const getTodo = id => {
-    TodoDataService.getAll(token)
+    TodoDataService1.getAll(token)
       .then(response => {
         const selectedTodo = response.data.find(item => item.id === parseInt(id));
         if (selectedTodo) {
@@ -111,7 +111,7 @@ function AddTodo({token}){
     };
 
     if (params.id) {
-      TodoDataService.updateTodo(params.id, data, token)
+      TodoDataService1.updateTodo(params.id, data, token)
         .then(response => {
           setSubmitted(true);
           console.log(response.data);
@@ -120,7 +120,7 @@ function AddTodo({token}){
           console.log(e);
         });
     } else {
-      TodoDataService.createTodo(data, token)
+      TodoDataService1.createTodo(data, token)
         .then(response => {
           setSubmitted(true);
         })

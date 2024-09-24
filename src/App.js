@@ -22,7 +22,7 @@ function App() {
 
     const [user, setUser] = React.useState(localStorage.getItem('user') || null) // extra
     const [token, setToken] = React.useState(localStorage.getItem('token') || null)
-    const [error, setError] = React.useState()
+    //const [error, setError] = React.useState()
 
     async function login(user=null
     ){
@@ -31,10 +31,10 @@ function App() {
             setUser(user.username)
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', user.username)
-            setError('');
+            //setError('');
         }).catch(e=>{
             console.log('login ', e);
-            setError(e.toString());
+            //setError(e.toString());
         });
     }
 
@@ -51,10 +51,10 @@ function App() {
             setUser(user.username)
             localStorage.setItem('token', response.data.token)
             localStorage.setItem('user', user.username)
-            setError('');
+            //setError('');
         }).catch(e=>{
             console.log(e);
-            setError(e.toString());
+            //setError(e.toString());
         });
     }
 
@@ -104,7 +104,7 @@ function App() {
         </div>
         <footer className='text-center text-lg-start bg-light text-muted mt-4'>
             <div className='text-center p-4'>
-                Copyright - <a target='_blank' className='text-reset fw-bold text-decoration-none' href='#'>MINE</a>
+                Copyright - <a target='_blank' className='text-reset fw-bold text-decoration-none' >MINE</a>
             </div>
         </footer>
     </div>

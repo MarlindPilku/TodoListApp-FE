@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 //import '../App.css'
 
-import TodoDataService from '../services/todos';
+import TodoDataService1 from '../services/todos';
 import {Link} from 'react-router-dom';
 // UI
 import Container from "react-bootstrap/Container";
@@ -26,14 +26,14 @@ function TodoList({token, user}){
 
     const retrieveTodos = () =>{
 
-        TodoDataService.getAll(token).then(response => {
+        TodoDataService1.getAll(token).then(response => {
             setTodos(response.data);
         }).catch(e=>{console.log(e);
          console.error('Error retrieving todos:', e.response ? e.response.data : e);});
     }
 
     const deleteTodo=(todoId)=>{
-        TodoDataService.deleteTodo(todoId, token).then(response => {
+        TodoDataService1.deleteTodo(todoId, token).then(response => {
             retrieveTodos()
         }).catch(e=>{
             console.log(e);
@@ -41,7 +41,7 @@ function TodoList({token, user}){
     }
 
     const completeTodo = (todoId) => {
-        TodoDataService.completeTodo(todoId,token).then(response => {
+        TodoDataService1.completeTodo(todoId,token).then(response => {
             retrieveTodos();
             console.log('completeTodo ', todoId);
         }).catch(e=>{
