@@ -1,6 +1,11 @@
 import axios from "axios";
+
+// global
 const API_BASE_URL = 'https://marlind.pythonanywhere.com/api'
 
+
+// local
+//const API_BASE_URL = 'http://localhost:8000/api'
 class TodoDataService{
 
     getAll(token){

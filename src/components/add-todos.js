@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 //import '../App.css'
 // v6 changes
-import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import TodoDataService1 from '../services/todos';
 import {Link} from 'react-router-dom';
@@ -9,6 +9,8 @@ import {Link} from 'react-router-dom';
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { Calendar } from 'react-calendar';
+import '../index.css'
 
 function AddTodo({token}){
 
@@ -25,7 +27,8 @@ function AddTodo({token}){
         id: null,
         title: "",
         memo: "",
-        completed: false
+        completed: false,
+        dueDate: new Date(), // Add due date to initial state
       };
 
     /* v5
@@ -35,6 +38,7 @@ function AddTodo({token}){
     //v6
     const [todo, setTodo] = useState(initialTodoState);
     const [submitted, setSubmitted] = useState(false);
+    const [showCalendar, setShowCalendar] = useState(false);
     // v6
     useEffect(() => {
     if (params.id) {
@@ -47,7 +51,11 @@ function AddTodo({token}){
       .then(response => {
         const selectedTodo = response.data.find(item => item.id === parseInt(id));
         if (selectedTodo) {
-          setTodo(selectedTodo);
+          //setTodo(selectedTodo);
+            setTodo({
+            ...selectedTodo,
+            dueDate: selectedTodo.dueDate ? new Date(selectedTodo.dueDate) : new Date()
+          });
         }
       })
       .catch(e => {
@@ -77,6 +85,11 @@ function AddTodo({token}){
     const { name, value } = event.target;
     setTodo({ ...todo, [name]: value });
   };
+    const handleDateChange = date => {
+    setTodo({ ...todo, dueDate: date });
+    setShowCalendar(false);
+  };
+
     /*const saveTodo = () =>{
         let data = {
             title: title,
@@ -107,7 +120,8 @@ function AddTodo({token}){
     var data = {
       title: todo.title,
       memo: todo.memo,
-      completed: todo.completed
+      completed: todo.completed,
+      dueDate: todo.dueDate.toISOString() // Convert date to ISO string for storage
     };
 
     if (params.id) {
@@ -151,6 +165,27 @@ function AddTodo({token}){
                         </Form.Label>
                         <Form.Control as='textarea' rows={3} placeholder='eg buy gift tomorrow' name='memo' value={todo.memo} onChange={handleInputChange}/>
                     </Form.Group>
+                    <Form.Group className='mb-3'>
+                        <Form.Label>Due Date</Form.Label>
+                        <div className="d-flex flex-column">
+                          <Button
+                            variant="outline-secondary"
+                            className="mb-2"
+                            onClick={() => setShowCalendar(!showCalendar)}
+                          >
+                            {todo.dueDate.toLocaleDateString()}
+                          </Button>
+                          {showCalendar && (
+                            <div className="calendar-popup">
+                              <Calendar
+                                onChange={handleDateChange}
+                                value={todo.dueDate}
+                                className="border rounded shadow-sm"
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </Form.Group>
                     <Button variant='info' onClick={saveTodo}>{params.id ? "Update" : "Add"}</Button>
                 </Form>
             )}

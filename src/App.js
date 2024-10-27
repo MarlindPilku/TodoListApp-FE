@@ -104,7 +104,7 @@ function App() {
         </div>
         <footer className='text-center text-lg-start bg-light text-muted mt-4'>
             <div className='text-center p-4'>
-                Copyright - <a target='_blank' className='text-reset fw-bold text-decoration-none' >MINE</a>
+                Copyright - <p className='text-reset fw-bold text-decoration-none' >MINE</p>
             </div>
         </footer>
     </div>
